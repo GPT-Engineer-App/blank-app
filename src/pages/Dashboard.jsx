@@ -23,6 +23,7 @@ const Dashboard = () => {
           <Tab>Tasks</Tab>
           <Tab>Files</Tab>
           <Tab>Messages</Tab>
+          <Tab>Settings</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -33,6 +34,9 @@ const Dashboard = () => {
           </TabPanel>
           <TabPanel>
             <Messages />
+          </TabPanel>
+          <TabPanel>
+            <p>Settings content goes here</p>
           </TabPanel>
         </TabPanels>
       </Tabs>
