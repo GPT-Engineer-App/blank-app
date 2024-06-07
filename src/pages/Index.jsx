@@ -3,7 +3,15 @@ import { FaRocket } from "react-icons/fa";
 import { useSupabaseAuth } from '../integrations/supabase/auth.jsx';
 import { useNavigate } from 'react-router-dom';
 
-const Index = () => {
+const buttonStyles = {
+    transition: "all 0.3s ease",
+    _hover: {
+      bg: "teal.600",
+      boxShadow: "md",
+    },
+  };
+
+  const Index = () => {
   const { session, logout } = useSupabaseAuth();
   const navigate = useNavigate();
 
@@ -23,15 +31,15 @@ const Index = () => {
         <Text fontSize="lg">This is your starting point. Begin building something amazing!</Text>
         {session ? (
           <>
-            <Button onClick={handleLogout} colorScheme="teal" size="lg">
+            <Button onClick={handleLogout} colorScheme="teal" size="lg" sx={buttonStyles}>
               Logout
             </Button>
-            <Button onClick={handleDashboard} colorScheme="teal" size="lg">
+            <Button onClick={handleDashboard} colorScheme="teal" size="lg" sx={buttonStyles}>
               Go to Dashboard
             </Button>
           </>
         ) : (
-          <Button onClick={() => navigate('/login')} leftIcon={<FaRocket />} colorScheme="teal" size="lg">
+          <Button onClick={() => navigate('/login')} leftIcon={<FaRocket />} colorScheme="teal" size="lg" sx={buttonStyles}>
             Login
           </Button>
         )}
