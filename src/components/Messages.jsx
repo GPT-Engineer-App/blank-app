@@ -15,6 +15,7 @@ const Messages = () => {
             <Th>ID</Th>
             <Th>Created At</Th>
             <Th>For</Th>
+            <Th>Message</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -23,6 +24,7 @@ const Messages = () => {
               <Td>{message.id}</Td>
               <Td>{new Date(message.created_at).toLocaleString()}</Td>
               <Td>{message.for}</Td>
+              <Td>{message.message}</Td>
             </Tr>
           ))}
         </Tbody>
