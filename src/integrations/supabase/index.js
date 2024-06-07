@@ -19,46 +19,171 @@ const fromSupabase = async (query) => {
 
 /* supabase integration types
 
-// EXAMPLE TYPES SECTION
-// DO NOT USE TYPESCRIPT
-
-Foo // table: foos
+UserData // table: user_data
     id: number
-    title: string
+    created_at: string
+    user_data: object
 
-Bar // table: bars
+Tasks // table: tasks
     id: number
-    foo_id: number // foreign key to Foo
-	
+    created_at: string
+    user_id: string
+    task_name: string
+    task_description: string
+
+UserFiles // table: user_files
+    id: number
+    created_at: string
+    user_id: string
+    file_name: string
+    file_description: string
+
+Messages // table: messages
+    id: number
+    created_at: string
+    for: string
 */
 
-// Example hook for models
+// Hooks for user_data table
+export const useUserData = () => useQuery({
+    queryKey: ['user_data'],
+    queryFn: () => fromSupabase(supabase.from('user_data').select('*')),
+});
 
-export const useFoo = ()=> useQuery({
-    queryKey: ['foo'],
-    queryFn: fromSupabase(supabase.from('foo')),
-})
-export const useAddFoo = () => {
+export const useAddUserData = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (newFoo)=> fromSupabase(supabase.from('foo').insert([{ title: newFoo.title }])),
-        onSuccess: ()=> {
-            queryClient.invalidateQueries('foo');
+        mutationFn: (newUserData) => fromSupabase(supabase.from('user_data').insert([newUserData])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('user_data');
         },
     });
 };
 
-export const useBar = ()=> useQuery({
-    queryKey: ['bar'],
-    queryFn: fromSupabase(supabase.from('bar')),
-})
-export const useAddBar = () => {
+export const useUpdateUserData = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (newBar)=> fromSupabase(supabase.from('bar').insert([{ foo_id: newBar.foo_id }])),
-        onSuccess: ()=> {
-            queryClient.invalidateQueries('bar');
+        mutationFn: (updatedUserData) => fromSupabase(supabase.from('user_data').update(updatedUserData).eq('id', updatedUserData.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('user_data');
         },
     });
 };
 
+export const useDeleteUserData = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('user_data').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('user_data');
+        },
+    });
+};
+
+// Hooks for tasks table
+export const useTasks = () => useQuery({
+    queryKey: ['tasks'],
+    queryFn: () => fromSupabase(supabase.from('tasks').select('*')),
+});
+
+export const useAddTasks = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newTask) => fromSupabase(supabase.from('tasks').insert([newTask])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('tasks');
+        },
+    });
+};
+
+export const useUpdateTasks = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedTask) => fromSupabase(supabase.from('tasks').update(updatedTask).eq('id', updatedTask.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('tasks');
+        },
+    });
+};
+
+export const useDeleteTasks = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('tasks').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('tasks');
+        },
+    });
+};
+
+// Hooks for user_files table
+export const useUserFiles = () => useQuery({
+    queryKey: ['user_files'],
+    queryFn: () => fromSupabase(supabase.from('user_files').select('*')),
+});
+
+export const useAddUserFiles = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newUserFile) => fromSupabase(supabase.from('user_files').insert([newUserFile])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('user_files');
+        },
+    });
+};
+
+export const useUpdateUserFiles = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedUserFile) => fromSupabase(supabase.from('user_files').update(updatedUserFile).eq('id', updatedUserFile.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('user_files');
+        },
+    });
+};
+
+export const useDeleteUserFiles = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('user_files').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('user_files');
+        },
+    });
+};
+
+// Hooks for messages table
+export const useMessages = () => useQuery({
+    queryKey: ['messages'],
+    queryFn: () => fromSupabase(supabase.from('messages').select('*')),
+});
+
+export const useAddMessages = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newMessage) => fromSupabase(supabase.from('messages').insert([newMessage])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('messages');
+        },
+    });
+};
+
+export const useUpdateMessages = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedMessage) => fromSupabase(supabase.from('messages').update(updatedMessage).eq('id', updatedMessage.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('messages');
+        },
+    });
+};
+
+export const useDeleteMessages = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('messages').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('messages');
+        },
+    });
+};
