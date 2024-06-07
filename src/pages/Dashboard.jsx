@@ -4,6 +4,7 @@ import { Container, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/r
 import { useSupabaseAuth } from '../integrations/supabase/auth.jsx';
 import Tasks from '../components/Tasks.jsx';
 import Files from '../components/Files.jsx';
+import Messages from '../components/Messages.jsx';
 
 const Dashboard = () => {
   const { session } = useSupabaseAuth();
@@ -21,6 +22,7 @@ const Dashboard = () => {
         <TabList>
           <Tab>Tasks</Tab>
           <Tab>Files</Tab>
+          <Tab>Messages</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -28,6 +30,9 @@ const Dashboard = () => {
           </TabPanel>
           <TabPanel>
             <Files />
+          </TabPanel>
+          <TabPanel>
+            <Messages />
           </TabPanel>
         </TabPanels>
       </Tabs>
