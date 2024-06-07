@@ -2,21 +2,6 @@ import { useState } from 'react';
 import { Box, Table, Thead, Tbody, Tr, Th, Td, Button } from '@chakra-ui/react';
 import { useMessages, useDeleteMessages } from '../integrations/supabase/index.js';
 
-const buttonStyles = {
-  transition: "all 0.3s ease",
-  _hover: {
-    bg: "red.600",
-    boxShadow: "md",
-  },
-};
-
-const rowStyles = {
-  transition: "background-color 0.3s ease",
-  _hover: {
-    bg: "gray.100",
-  },
-};
-
 const Messages = () => {
   const { data: messages, isLoading } = useMessages();
   const deleteMessage = useDeleteMessages();
@@ -46,13 +31,13 @@ const Messages = () => {
         </Thead>
         <Tbody>
           {messages.map(message => (
-            <Tr key={message.id} sx={rowStyles}>
+            <Tr key={message.id}>
               <Td>{message.id}</Td>
               <Td>{new Date(message.created_at).toLocaleString()}</Td>
               <Td>{message.for}</Td>
               <Td>{message.message}</Td>
               <Td>
-                <Button size="sm" colorScheme="red" onClick={() => handleDismiss(message.id)} sx={buttonStyles}>Dismiss</Button>
+                <Button size="sm" colorScheme="red" onClick={() => handleDismiss(message.id)}>Dismiss</Button>
               </Td>
             </Tr>
           ))}

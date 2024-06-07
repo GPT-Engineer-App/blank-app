@@ -2,31 +2,6 @@ import { useState } from 'react';
 import { Box, Button, Table, Thead, Tbody, Tr, Th, Td, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, FormControl, FormLabel, Input } from '@chakra-ui/react';
 import { useTasks, useAddTasks, useUpdateTasks, useDeleteTasks } from '../integrations/supabase/index.js';
 
-const buttonStyles = {
-  transition: "all 0.3s ease",
-  _hover: {
-    bg: "teal.600",
-    boxShadow: "md",
-  },
-};
-
-const rowStyles = {
-  transition: "background-color 0.3s ease",
-  _hover: {
-    bg: "gray.100",
-  },
-};
-
-const modalStyles = {
-  transition: "transform 0.3s ease",
-  _enter: {
-    transform: "scale(1.05)",
-  },
-  _leave: {
-    transform: "scale(0.95)",
-  },
-};
-
 const Tasks = () => {
   const { data: tasks, isLoading } = useTasks();
   const addTask = useAddTasks();
@@ -62,7 +37,7 @@ const Tasks = () => {
 
   return (
     <Box>
-      <Button onClick={() => openModal()} colorScheme="teal" mb={4} sx={buttonStyles}>Add Task</Button>
+      <Button onClick={() => openModal()} colorScheme="teal" mb={4}>Add Task</Button>
       <Table variant="simple">
         <Thead>
           <Tr>
@@ -73,19 +48,19 @@ const Tasks = () => {
         </Thead>
         <Tbody>
           {tasks.map(task => (
-            <Tr key={task.id} sx={rowStyles}>
+            <Tr key={task.id}>
               <Td>{task.task_name}</Td>
               <Td>{task.task_description}</Td>
               <Td>
-                <Button size="sm" onClick={() => openModal(task)} mr={2} sx={buttonStyles}>Edit</Button>
-                <Button size="sm" colorScheme="red" onClick={() => handleDeleteTask(task.id)} sx={buttonStyles}>Delete</Button>
+                <Button size="sm" onClick={() => openModal(task)} mr={2}>Edit</Button>
+                <Button size="sm" colorScheme="red" onClick={() => handleDeleteTask(task.id)}>Delete</Button>
               </Td>
             </Tr>
           ))}
         </Tbody>
       </Table>
 
-      <Modal isOpen={isOpen} onClose={onClose} sx={modalStyles}>
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{currentTask ? 'Edit Task' : 'Add Task'}</ModalHeader>

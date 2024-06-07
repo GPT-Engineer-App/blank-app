@@ -3,31 +3,6 @@ import { Box, Button, Table, Thead, Tbody, Tr, Th, Td, useDisclosure, Modal, Mod
 import { useUserFiles, useAddUserFiles, useUpdateUserFiles, useDeleteUserFiles } from '../integrations/supabase/index.js';
 
 const Files = () => {
-  const buttonStyles = {
-    transition: "all 0.3s ease",
-    _hover: {
-      bg: "teal.600",
-      boxShadow: "md",
-    },
-  };
-
-  const rowStyles = {
-    transition: "background-color 0.3s ease",
-    _hover: {
-      bg: "gray.100",
-    },
-  };
-
-  const modalStyles = {
-    transition: "transform 0.3s ease",
-    _enter: {
-      transform: "scale(1.05)",
-    },
-    _leave: {
-      transform: "scale(0.95)",
-    },
-  };
-
   const { data: files, isLoading } = useUserFiles();
   const addFile = useAddUserFiles();
   const updateFile = useUpdateUserFiles();
@@ -74,7 +49,7 @@ const Files = () => {
 
   return (
     <Box>
-      <Button onClick={() => openModal()} colorScheme="teal" mb={4} sx={buttonStyles}>Add File</Button>
+      <Button onClick={() => openModal()} colorScheme="teal" mb={4}>Add File</Button>
       <Table variant="simple">
         <Thead>
           <Tr>
@@ -85,20 +60,20 @@ const Files = () => {
         </Thead>
         <Tbody>
           {files.map(file => (
-            <Tr key={file.id} sx={rowStyles}>
+            <Tr key={file.id}>
               <Td>{file.file_name}</Td>
               <Td>{file.file_description}</Td>
               <Td>
-                <Button size="sm" colorScheme="blue" onClick={() => handleSignFile(file)} mr={2} sx={buttonStyles}>Sign File</Button>
-                <Button size="sm" onClick={() => openModal(file)} mr={2} sx={buttonStyles}>Edit</Button>
-                <Button size="sm" colorScheme="red" onClick={() => handleDeleteFile(file.id)} sx={buttonStyles}>Delete</Button>
+                <Button size="sm" colorScheme="blue" onClick={() => handleSignFile(file)} mr={2}>Sign File</Button>
+                <Button size="sm" onClick={() => openModal(file)} mr={2}>Edit</Button>
+                <Button size="sm" colorScheme="red" onClick={() => handleDeleteFile(file.id)}>Delete</Button>
               </Td>
             </Tr>
           ))}
         </Tbody>
       </Table>
 
-      <Modal isOpen={isOpen} onClose={onClose} sx={modalStyles}>
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{currentFile ? 'Edit File' : 'Add File'}</ModalHeader>
