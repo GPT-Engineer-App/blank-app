@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Button, Table, Thead, Tbody, Tr, Th, Td, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, FormControl, FormLabel, Input, useToast } from '@chakra-ui/react';
+import { Box, Button, Table, Thead, Tbody, Tr, Th, Td, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, FormControl, FormLabel, Input } from '@chakra-ui/react';
 import { useUserFiles, useAddUserFiles, useUpdateUserFiles, useDeleteUserFiles } from '../integrations/supabase/index.js';
 
 const Files = () => {
@@ -11,7 +11,6 @@ const Files = () => {
   const [currentFile, setCurrentFile] = useState(null);
   const [fileName, setFileName] = useState('');
   const [fileDescription, setFileDescription] = useState('');
-  const toast = useToast();
 
   const handleAddFile = () => {
     addFile.mutate({ file_name: fileName, file_description: fileDescription });
@@ -25,17 +24,6 @@ const Files = () => {
 
   const handleDeleteFile = (id) => {
     deleteFile.mutate(id);
-  };
-
-  const handleSignFile = (file) => {
-    console.log(`File signed: ${file.file_name}`);
-    toast({
-      title: "File Signed",
-      description: `File signed: ${file.file_name}`,
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
   };
 
   const openModal = (file = null) => {
@@ -64,7 +52,6 @@ const Files = () => {
               <Td>{file.file_name}</Td>
               <Td>{file.file_description}</Td>
               <Td>
-                <Button size="sm" colorScheme="blue" onClick={() => handleSignFile(file)} mr={2}>Sign File</Button>
                 <Button size="sm" onClick={() => openModal(file)} mr={2}>Edit</Button>
                 <Button size="sm" colorScheme="red" onClick={() => handleDeleteFile(file.id)}>Delete</Button>
               </Td>
