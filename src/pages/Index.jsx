@@ -11,6 +11,7 @@ const Index = () => {
     await logout();
     navigate('/login');
   };
+
   return (
     <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
       <VStack spacing={4}>

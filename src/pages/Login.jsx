@@ -16,7 +16,7 @@ const Login = () => {
   return (
     <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
       <VStack spacing={4}>
-        <Heading as="h1" size="2xl">Login</Heading>
+        <Heading as="h1" size="2xl">Sign In</Heading>
         <Box width="100%">
           <SupabaseAuthUI />
         </Box>
