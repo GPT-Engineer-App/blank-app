@@ -43,7 +43,6 @@ Messages // table: messages
     created_at: string
     for: string
     message: string
-    is_checked: boolean
 */
 
 // Hooks for user_data table
@@ -157,7 +156,7 @@ export const useDeleteUserFiles = () => {
 // Hooks for messages table
 export const useMessages = () => useQuery({
     queryKey: ['messages'],
-    queryFn: () => fromSupabase(supabase.from('messages').select('*').eq('is_checked', false)),
+    queryFn: () => fromSupabase(supabase.from('messages').select('*')),
 });
 
 export const useAddMessages = () => {
@@ -184,16 +183,6 @@ export const useDeleteMessages = () => {
     const queryClient = useQueryClient();
     return useMutation({
         mutationFn: (id) => fromSupabase(supabase.from('messages').delete().eq('id', id)),
-        onSuccess: () => {
-            queryClient.invalidateQueries('messages');
-        },
-    });
-};
-
-export const useUpdateMessageStatus = () => {
-    const queryClient = useQueryClient();
-    return useMutation({
-        mutationFn: (updatedMessage) => fromSupabase(supabase.from('messages').update(updatedMessage).eq('id', updatedMessage.id)),
         onSuccess: () => {
             queryClient.invalidateQueries('messages');
         },
