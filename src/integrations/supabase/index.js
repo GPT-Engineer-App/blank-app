@@ -42,6 +42,7 @@ Messages // table: messages
     id: number
     created_at: string
     for: string
+    message: string
 */
 
 // Hooks for user_data table
