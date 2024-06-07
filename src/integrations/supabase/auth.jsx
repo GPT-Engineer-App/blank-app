@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 
-const SupabaseAuthContext = createContext(null);
+const SupabaseAuthContext = createContext();
 
 export const SupabaseAuthProvider = ({ children }) => {
   const [session, setSession] = useState(null);
