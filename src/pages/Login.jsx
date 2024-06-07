@@ -3,6 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { Container, VStack, Heading, Box } from '@chakra-ui/react';
 import { SupabaseAuthUI, useSupabaseAuth } from '../integrations/supabase/auth.jsx';
 
+const modalStyles = {
+  transition: "transform 0.3s ease",
+  _enter: {
+    transform: "scale(1.05)",
+  },
+  _leave: {
+    transform: "scale(0.95)",
+  },
+};
+
 const Login = () => {
   const { session } = useSupabaseAuth();
   const navigate = useNavigate();
