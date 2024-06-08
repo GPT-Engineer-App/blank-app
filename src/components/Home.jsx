@@ -1,4 +1,4 @@
-import { Box, SimpleGrid, Stat, StatLabel, StatNumber, useColorModeValue, VStack, Heading, Text, IconButton } from '@chakra-ui/react';
+import { Box, SimpleGrid, Stat, StatLabel, StatNumber, useColorModeValue, VStack, Heading, Text, IconButton, Center } from '@chakra-ui/react';
 import { useState } from 'react';
 import { CloseIcon } from '@chakra-ui/icons';
 import { useTasks, useUserFiles, useMessages } from '../integrations/supabase/index.js';
@@ -54,31 +54,37 @@ const Home = () => {
           <Text>Loading...</Text>
         ) : (
           <VStack spacing={4} align="stretch">
-            {messages.map(message => (
-              !dismissedAnnouncements.includes(message.id) && (
-                <Box
-                  key={message.id}
-                  p={4}
-                  shadow="md"
-                  borderWidth="1px"
-                  borderRadius="md"
-                  bg={useColorModeValue('gray.100', 'gray.700')}
-                  position="relative"
-                >
-                  <IconButton
-                    icon={<CloseIcon />}
-                    size="sm"
-                    colorScheme="blackAlpha"
-                    position="absolute"
-                    top="4px"
-                    right="4px"
-                    onClick={() => handleDismiss(message.id)}
-                  />
-                  <Text fontWeight="bold">{new Date(message.created_at).toLocaleDateString()}</Text>
-                  <Text mt={2}>{message.message}</Text>
-                </Box>
-              )
-            ))}
+            {messages.length === dismissedAnnouncements.length ? (
+          <Center>
+            <Text fontSize="xl" fontWeight="bold">You're all caught up!</Text>
+          </Center>
+        ) : (
+          messages.map(message => (
+            !dismissedAnnouncements.includes(message.id) && (
+              <Box
+                key={message.id}
+                p={4}
+                shadow="md"
+                borderWidth="1px"
+                borderRadius="md"
+                bg={useColorModeValue('gray.100', 'gray.700')}
+                position="relative"
+              >
+                <IconButton
+                  icon={<CloseIcon />}
+                  size="sm"
+                  colorScheme="blackAlpha"
+                  position="absolute"
+                  top="4px"
+                  right="4px"
+                  onClick={() => handleDismiss(message.id)}
+                />
+                <Text fontWeight="bold">{new Date(message.created_at).toLocaleDateString()}</Text>
+                <Text mt={2}>{message.message}</Text>
+              </Box>
+            )
+          ))
+        )}
           </VStack>
         )}
       </Box>
