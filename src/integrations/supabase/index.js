@@ -1,5 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
-import { useQuery, useMutation, useQueryClient, QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_PROJECT_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_API_KEY;
@@ -153,38 +153,3 @@ export const useDeleteUserFiles = () => {
     });
 };
 
-// Hooks for messages table
-export const useMessages = () => useQuery({
-    queryKey: ['messages'],
-    queryFn: () => fromSupabase(supabase.from('messages').select('*')),
-});
-
-export const useAddMessages = () => {
-    const queryClient = useQueryClient();
-    return useMutation({
-        mutationFn: (newMessage) => fromSupabase(supabase.from('messages').insert([newMessage])),
-        onSuccess: () => {
-            queryClient.invalidateQueries('messages');
-        },
-    });
-};
-
-export const useUpdateMessages = () => {
-    const queryClient = useQueryClient();
-    return useMutation({
-        mutationFn: (updatedMessage) => fromSupabase(supabase.from('messages').update(updatedMessage).eq('id', updatedMessage.id)),
-        onSuccess: () => {
-            queryClient.invalidateQueries('messages');
-        },
-    });
-};
-
-export const useDeleteMessages = () => {
-    const queryClient = useQueryClient();
-    return useMutation({
-        mutationFn: (id) => fromSupabase(supabase.from('messages').delete().eq('id', id)),
-        onSuccess: () => {
-            queryClient.invalidateQueries('messages');
-        },
-    });
-};
