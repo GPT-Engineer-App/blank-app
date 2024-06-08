@@ -1,9 +1,10 @@
-import { Box, SimpleGrid, Stat, StatLabel, StatNumber, useColorModeValue } from '@chakra-ui/react';
-import { useTasks, useUserFiles } from '../integrations/supabase/index.js';
+import { Box, SimpleGrid, Stat, StatLabel, StatNumber, useColorModeValue, VStack, Heading, Text } from '@chakra-ui/react';
+import { useTasks, useUserFiles, useMessages } from '../integrations/supabase/index.js';
 
 const Home = () => {
   const { data: tasks, isLoading: tasksLoading } = useTasks();
   const { data: files, isLoading: filesLoading } = useUserFiles();
+  const { data: messages, isLoading: messagesLoading } = useMessages();
 
   const tasksCount = tasks ? tasks.length : 0;
   const filesCount = files ? files.length : 0;
@@ -40,6 +41,28 @@ const Home = () => {
           </StatNumber>
         </Stat>
       </SimpleGrid>
+      <Box mt={10}>
+        <Heading as="h2" size="lg" mb={4}>Announcements</Heading>
+        {messagesLoading ? (
+          <Text>Loading...</Text>
+        ) : (
+          <VStack spacing={4} align="stretch">
+            {messages.map(message => (
+              <Box
+                key={message.id}
+                p={4}
+                shadow="md"
+                borderWidth="1px"
+                borderRadius="md"
+                bg={useColorModeValue('gray.100', 'gray.700')}
+              >
+                <Text fontWeight="bold">{new Date(message.created_at).toLocaleDateString()}</Text>
+                <Text mt={2}>{message.message}</Text>
+              </Box>
+            ))}
+          </VStack>
+        )}
+      </Box>
     </Box>
   );
 };
