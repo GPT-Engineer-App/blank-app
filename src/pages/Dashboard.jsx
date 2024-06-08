@@ -24,7 +24,6 @@ const Dashboard = () => {
           <Tab>Home</Tab>
           <Tab>Tasks</Tab>
           <Tab>Files</Tab>
-          <Tab>Messages</Tab>
           <Tab>Settings</Tab>
         </TabList>
         <TabPanels>
@@ -36,9 +35,6 @@ const Dashboard = () => {
           </TabPanel>
           <TabPanel>
             <Files />
-          </TabPanel>
-          <TabPanel>
-            <Messages />
           </TabPanel>
           <TabPanel>
             <p>Settings content goes here</p>
