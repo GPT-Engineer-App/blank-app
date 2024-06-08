@@ -4,7 +4,6 @@ import { Container, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/r
 import { useSupabaseAuth } from '../integrations/supabase/auth.jsx';
 import Tasks from '../components/Tasks.jsx';
 import Files from '../components/Files.jsx';
-import Messages from '../components/Messages.jsx';
 import Home from '../components/Home.jsx';
 
 const Dashboard = () => {
